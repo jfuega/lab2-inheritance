@@ -44,11 +44,11 @@ let bob10k:SavingsAccount = new SavingsAccount(10000,"Bob Loblaw");
 bob10k.checkBalance();
 bob10k.deposit(5000);
 bob10k.checkBalance();
-bob10k.withdraw(14000); //first
+bob10k.withdraw(14000); //first withdraw, PASS 1000
 bob10k.checkBalance();
-bob10k.withdraw(333);   //second
+bob10k.withdraw(333);   //second withdraw PASS 667
 bob10k.checkBalance();
-bob10k.withdraw(333);   //third
+bob10k.withdraw(333);   //third withdraw PASS 334
 bob10k.checkBalance();
-bob10k.withdraw(334);   //fourth
+bob10k.withdraw(334);   //fourth withdraw, FAIL 
 bob10k.checkBalance();
