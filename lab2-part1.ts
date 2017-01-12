@@ -1,4 +1,4 @@
-class BankAccount {
+class CheckingAccount {
 
     private theBalance:number;
     private ownerName:string;
@@ -31,7 +31,7 @@ class BankAccount {
     
 }
 
-let bob10k:BankAccount = new BankAccount(10000,"Bob Loblaw");
+let bob10k:CheckingAccount = new CheckingAccount(10000,"Bob Loblaw");
 
 bob10k.checkBalance();
 bob10k.deposit(5000);
