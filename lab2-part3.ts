@@ -1,8 +1,8 @@
 
 class Account {
 
-    private theBalance:number;
-    private ownerName:string;
+     theBalance:number; //make private?
+     ownerName:string;  //make private?
 
     constructor(initialBalance:number, theOwner:string) {
 
@@ -21,31 +21,39 @@ class Account {
         console.log('Account owner: ' + this.ownerName);
     }
     
-    getBalance() {
-        return this.theBalance;
-    }
+    // getBalance() {
+    //     return this.theBalance;
+    // }
 
-    setBalance(amount:number) {
-        this.theBalance = this.theBalance + amount;
+    // setBalance(amount:number) {
+    //     this.theBalance = this.theBalance + amount;
+    // }
+    
+    withdraw(withdrawAmount:number) {
+        if(this.theBalance > withdrawAmount) {
+            this.theBalance = this.theBalance - withdrawAmount;
+        } else {
+            console.log("We aren't able to make the withdraw. You currently have $" + this.theBalance + " in your account.");
+        }
     }
-
 
 }
 
 class CheckingAccount extends Account {
 
-    withdraw(withdrawAmount:number) {
-        if(this.getBalance() > withdrawAmount) {
-            
-            this.setBalance(this.getBalance() - withdrawAmount);
-        } else {
-            console.log("We aren't able to make the withdraw. You currently have $" + super.getBalance() + " in your account.");
-        }
+    constructor(initialBalance:number, owner:string) {
+        super(initialBalance, owner);
     }
-    
+  
 }
 
 class SavingsAccount extends Account {
+    
+    /*
+    constructor(initialBalance:number, owner:string) { //do subclasses need constructors? It works with and without
+        super(initialBalance, owner);
+    }
+    */
 
     private withdrawAllowed:number = 3;
     
@@ -54,10 +62,10 @@ class SavingsAccount extends Account {
         if(this.withdrawAllowed != 0) {
             this.withdrawAllowed--;
             console.log('You have ' + this.withdrawAllowed + ' withdraws left!');
-        if(super.getBalance() > withdrawAmount) {
-            super.setBalance(super.getBalance() - withdrawAmount);
+        if(this.theBalance > withdrawAmount) {
+            this.theBalance = this.theBalance - withdrawAmount;
             } else {
-                console.log("We aren't able to make the withdraw. You currently have $" + super.getBalance() + " in your account.");
+                console.log("We aren't able to make the withdraw. You currently have $" + this.theBalance + " in your account.");
             }
         } else {
             console.log("You can only withdraw three times from this account!");
@@ -67,18 +75,18 @@ class SavingsAccount extends Account {
 
 }
 
-//let bob10k:SavingsAccount = new SavingsAccount(10000,"Bob Loblaw");
-let greg10k:CheckingAccount = new CheckingAccount(10000,"greg Loblaw");
+let bob10k:SavingsAccount = new SavingsAccount(10000,"Bob Loblaw");
+// let greg10k:CheckingAccount = new CheckingAccount(10000,"Greg Loblaw");
 
 
-greg10k.checkBalance();
-greg10k.deposit(5000);
-greg10k.checkBalance();
-greg10k.withdraw(14000); //first withdraw, PASS 1000
-greg10k.checkBalance();
-// greg10k.withdraw(333);   //second withdraw PASS 667
-// greg10k.checkBalance();
-// greg10k.withdraw(333);   //third withdraw PASS 334
-// greg10k.checkBalance();
-// greg10k.withdraw(334);   //fourth withdraw, FAIL 
-// greg10k.checkBalance();
+bob10k.checkBalance();
+bob10k.deposit(5000);
+bob10k.checkBalance();
+bob10k.withdraw(14001); //first withdraw, EXPECTED 999
+bob10k.checkBalance();
+bob10k.withdraw(333);   //second withdraw PASS 667
+bob10k.checkBalance();
+bob10k.withdraw(333);   //third withdraw PASS 334
+bob10k.checkBalance();
+bob10k.withdraw(334);   //fourth withdraw, FAIL 
+bob10k.checkBalance();
